@@ -2,12 +2,12 @@ defmodule GeoGenius.Runners.PgFlow do
   @moduledoc """
   Runs an import as a durable PgFlow background job.
 
-  `pgflow` `>= 0.3.4 and < 0.4.0` is an optional dependency. It establishes
+  `pgflow` `>= 0.3.4 and < 0.5.0` is an optional dependency. It establishes
   compile order when a host opts into PgFlow, so `PgFlow.Job` is available
   before this file conditionally defines `GeoGenius.Runners.PgFlow.Job`.
   Hosts that do not install PgFlow do not receive it or compile the job.
 
-  PgFlow 0.3's dashboard code also compiles against its optional Phoenix,
+  PgFlow's dashboard code also compiles against its optional Phoenix,
   Phoenix LiveView, and LiveFilter packages when those packages are present.
   GeoGenius declares matching optional edges so its own integration build can
   exercise the real job module once that build supplies its job deadline. A
@@ -64,9 +64,10 @@ defmodule GeoGenius.Runners.PgFlow do
 
   A host that installs `pgflow` wires this up once:
 
-    1. Add `{:pgflow, "~> 0.3.4"}` to `mix.exs`. For PgFlow releases whose
-       dashboard compiles unconditionally, also add `:phoenix`,
-       `:phoenix_live_view`, and `:livefilter` at PgFlow's supported versions.
+    1. Add `{:pgflow, "~> 0.4.0"}` (or `>= 0.3.4 and < 0.5.0`) to `mix.exs`.
+       For PgFlow releases whose dashboard compiles unconditionally, also add
+       `:phoenix`, `:phoenix_live_view`, and `:livefilter` at PgFlow's
+       supported versions.
     2. Set `config :geo_genius, pgflow_job_timeout_seconds: seconds` at compile
        time, choosing a deadline for the host's bounded workload.
     3. Compile the job into the database with `mix pgflow.gen.job_migration
@@ -411,7 +412,7 @@ defmodule GeoGenius.Runners.PgFlow do
     end
   end
 
-  # PgFlow 0.3's Client uses this exact configured Repo resolution for
+  # PgFlow's Client uses this exact configured Repo resolution for
   # `flow_exists?/1` and `enqueue/2`; its worker supervisor stores the running
   # configuration in persistent_term and the application value is the
   # documented fallback when the client is used without that supervisor.
@@ -439,9 +440,9 @@ defmodule GeoGenius.Runners.PgFlow do
   @spec unavailable_message() :: String.t()
   def unavailable_message do
     ~s|GeoGenius cannot enqueue through PgFlow: :pgflow or this integration is not | <>
-      ~s|compiled, or its supervisor is not running. Add {:pgflow, "~> 0.3.4"} to your | <>
+      ~s|compiled, or its supervisor is not running. Add {:pgflow, "~> 0.4.0"} to your | <>
       ~s|deps. If that PgFlow release compiles its dashboard unconditionally, also add | <>
-      ~s|{:phoenix, "~> 1.7"}, {:phoenix_live_view, "~> 1.0"}, and | <>
+      ~s|{:phoenix, "~> 1.8"}, {:phoenix_live_view, "~> 1.0"}, and | <>
       ~s|{:livefilter, "~> 0.2"}, then run `mix deps.get`. Compile the job with | <>
       ~s|a positive compile-time `config :geo_genius, :pgflow_job_timeout_seconds`, then | <>
       ~s|`mix pgflow.gen.job_migration | <>
@@ -474,7 +475,7 @@ if Code.ensure_loaded?(PgFlow.Job) and
     before compiling GeoGenius. PgFlow's DSL records that value in generated
     migration data, so changing it requires recompiling this dependency and
     applying a new PgFlow job migration. There is no per-enqueue timeout in
-    PgFlow 0.3's Job API.
+    PgFlow's Job API.
 
     Deliberately thin: the mapping from `Pipeline.execute/3`'s result to
     this job's plain, JSON-serializable outcome, the opts it runs with, and

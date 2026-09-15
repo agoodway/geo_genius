@@ -25,7 +25,8 @@ defmodule GeoGenius.MixProjectTest do
 
     refute Version.match?("0.3.3", requirement)
     assert Version.match?("0.3.4", requirement)
-    refute Version.match?("0.4.0", requirement)
+    assert Version.match?("0.4.0", requirement)
+    refute Version.match?("0.5.0", requirement)
     assert opts[:optional] == true
     refute Keyword.has_key?(opts, :only)
 

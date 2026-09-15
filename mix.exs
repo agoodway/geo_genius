@@ -1,7 +1,7 @@
 defmodule GeoGenius.MixProject do
   use Mix.Project
 
-  @version "0.1.0"
+  @version "0.1.1"
   @source_url "https://github.com/agoodway/geo_genius"
 
   def project do
@@ -42,8 +42,8 @@ defmodule GeoGenius.MixProject do
       {:jason, "~> 1.4"},
       {:nimble_csv, "~> 1.2"},
       {:req, "~> 0.7", optional: true},
-      {:pgflow, ">= 0.3.4 and < 0.4.0", optional: true},
-      {:phoenix, "~> 1.7", optional: true},
+      {:pgflow, ">= 0.3.4 and < 0.5.0", optional: true},
+      {:phoenix, "~> 1.8", optional: true},
       {:phoenix_live_view, "~> 1.0", optional: true},
       {:livefilter, "~> 0.2.0", optional: true},
       {:plug, "~> 1.0", optional: true},

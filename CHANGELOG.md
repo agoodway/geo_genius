@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+### Dependencies
+
+- **Optional `pgflow` now accepts `>= 0.3.4 and < 0.5.0`**, so hosts can use Hex PgFlow 0.4.x without an override. Optional Phoenix edge raised to `~> 1.8`.
+
+
 ### Schema
 
 - **Schema version 2 repairs the display geometry both boundary writes derive, and is the
@@ -42,7 +47,7 @@
   host-owned setup migration, update GeoGenius, reinstall v1, and run `check_schema`. This is a
   destructive pre-production policy for catalogs reproducible from reviewed manifests and
   checksummed artifacts, not a production migration strategy.
-- **PgFlow `>= 0.3.4 and < 0.4.0` is an optional integration dependency.** This establishes
+- **PgFlow `>= 0.3.4 and < 0.5.0` is an optional integration dependency.** This establishes
   dependency compile order whenever a host opts into PgFlow, so
   `GeoGenius.Runners.PgFlow.Job` is compiled after `PgFlow.Job`; hosts without PgFlow still
   compile without any optional dependencies.

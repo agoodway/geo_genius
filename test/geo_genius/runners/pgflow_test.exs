@@ -82,7 +82,7 @@ defmodule GeoGenius.Runners.PgFlowTest do
     # about. Every assertion here names one step a truncated message could
     # plausibly still pass while leaving that gap.
     assert message =~ ":pgflow"
-    assert message =~ ~s({:phoenix, "~> 1.7"})
+    assert message =~ ~s({:phoenix, "~> 1.8"})
     assert message =~ ~s({:phoenix_live_view, "~> 1.0"})
     assert message =~ ~s({:livefilter, "~> 0.2"})
     refute message =~ "deps.compile geo_genius --force"
