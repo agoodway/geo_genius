@@ -2,7 +2,7 @@ defmodule GeoGenius.Runners.PgFlow do
   @moduledoc """
   Runs an import as a durable PgFlow background job.
 
-  `pgflow` `>= 0.3.4 and < 0.5.0` is an optional dependency. It establishes
+  `pgflow` `~> 0.5.0` is an optional dependency. It establishes
   compile order when a host opts into PgFlow, so `PgFlow.Job` is available
   before this file conditionally defines `GeoGenius.Runners.PgFlow.Job`.
   Hosts that do not install PgFlow do not receive it or compile the job.
@@ -64,7 +64,7 @@ defmodule GeoGenius.Runners.PgFlow do
 
   A host that installs `pgflow` wires this up once:
 
-    1. Add `{:pgflow, "~> 0.4.0"}` (or `>= 0.3.4 and < 0.5.0`) to `mix.exs`.
+    1. Add `{:pgflow, "~> 0.5.0"}` to `mix.exs`.
        For PgFlow releases whose dashboard compiles unconditionally, also add
        `:phoenix`, `:phoenix_live_view`, and `:livefilter` at PgFlow's
        supported versions.
@@ -440,7 +440,7 @@ defmodule GeoGenius.Runners.PgFlow do
   @spec unavailable_message() :: String.t()
   def unavailable_message do
     ~s|GeoGenius cannot enqueue through PgFlow: :pgflow or this integration is not | <>
-      ~s|compiled, or its supervisor is not running. Add {:pgflow, "~> 0.4.0"} to your | <>
+      ~s|compiled, or its supervisor is not running. Add {:pgflow, "~> 0.5.0"} to your | <>
       ~s|deps. If that PgFlow release compiles its dashboard unconditionally, also add | <>
       ~s|{:phoenix, "~> 1.8"}, {:phoenix_live_view, "~> 1.0"}, and | <>
       ~s|{:livefilter, "~> 0.2"}, then run `mix deps.get`. Compile the job with | <>

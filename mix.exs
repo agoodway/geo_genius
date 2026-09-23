@@ -42,7 +42,7 @@ defmodule GeoGenius.MixProject do
       {:jason, "~> 1.4"},
       {:nimble_csv, "~> 1.2"},
       {:req, "~> 0.7.4", optional: true},
-      {:pgflow, "~> 0.4.0", optional: true},
+      {:pgflow, "~> 0.5.0", optional: true},
       {:phoenix, "~> 1.8.14", optional: true},
       {:phoenix_live_view, "~> 1.2.12", optional: true},
       {:livefilter, "~> 0.2.0", optional: true},

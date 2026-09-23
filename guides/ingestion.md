@@ -568,7 +568,7 @@ available automatic backend wins: `Runners.Task`, then `Runners.Inline`.
 `GeoGenius.Runners.PgFlow` is explicit even when a PgFlow engine happens to be running. PgFlow's
 finite job deadline is a host decision for bounded work; merely installing it for an unrelated
 workflow must not make it the execution policy for an import that can run for hours. GeoGenius
-declares `pgflow >= 0.3.4 and < 0.5.0` as an optional dependency to establish compile order when a
+declares `pgflow ~> 0.5.0` as an optional dependency to establish compile order when a
 host opts in, without installing PgFlow for other hosts. Pin the runner per call or in application
 configuration after choosing a suitable deadline. The deadline is compile-time PgFlow job
 definition data, so it must be configured before GeoGenius compiles:
