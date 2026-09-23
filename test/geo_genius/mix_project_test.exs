@@ -23,8 +23,7 @@ defmodule GeoGenius.MixProjectTest do
     assert {:pgflow, requirement, opts} =
              Enum.find(deps, &match?({:pgflow, _, _}, &1))
 
-    refute Version.match?("0.3.3", requirement)
-    assert Version.match?("0.3.4", requirement)
+    refute Version.match?("0.3.4", requirement)
     assert Version.match?("0.4.0", requirement)
     refute Version.match?("0.5.0", requirement)
     assert opts[:optional] == true

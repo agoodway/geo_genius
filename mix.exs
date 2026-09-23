@@ -41,10 +41,10 @@ defmodule GeoGenius.MixProject do
       {:telemetry, "~> 1.3"},
       {:jason, "~> 1.4"},
       {:nimble_csv, "~> 1.2"},
-      {:req, "~> 0.7", optional: true},
-      {:pgflow, ">= 0.3.4 and < 0.5.0", optional: true},
-      {:phoenix, "~> 1.8", optional: true},
-      {:phoenix_live_view, "~> 1.0", optional: true},
+      {:req, "~> 0.7.4", optional: true},
+      {:pgflow, "~> 0.4.0", optional: true},
+      {:phoenix, "~> 1.8.14", optional: true},
+      {:phoenix_live_view, "~> 1.2.12", optional: true},
       {:livefilter, "~> 0.2.0", optional: true},
       {:plug, "~> 1.0", optional: true},
       {:credo, "~> 1.7", only: [:dev, :test], runtime: false},
@@ -52,8 +52,8 @@ defmodule GeoGenius.MixProject do
       {:sobelow, "~> 0.14", only: [:dev, :test], runtime: false},
       {:doctor, "~> 0.22 or ~> 0.23", only: [:dev, :test], runtime: false},
       {:ex_dna, "~> 1.2", only: [:dev, :test], runtime: false},
-      {:ex_slop, "~> 0.3", only: [:dev, :test], runtime: false},
-      {:ex_doc, "~> 0.38 or ~> 0.39 or ~> 0.40", only: :dev, runtime: false}
+      {:ex_slop, "~> 0.4.5", only: [:dev, :test], runtime: false},
+      {:ex_doc, "~> 0.40.4", only: :dev, runtime: false}
     ]
   end
 
