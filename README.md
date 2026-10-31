@@ -104,7 +104,7 @@ Add `geo_genius` to your dependencies in `mix.exs`:
 ```elixir
 def deps do
   [
-    {:geo_genius, "~> 0.1.0"}
+    {:geo_genius, "~> 0.2.0"}
   ]
 end
 ```

@@ -568,7 +568,7 @@ available automatic backend wins: `Runners.Task`, then `Runners.Inline`.
 `GeoGenius.Runners.PgFlow` is explicit even when a PgFlow engine happens to be running. PgFlow's
 finite job deadline is a host decision for bounded work; merely installing it for an unrelated
 workflow must not make it the execution policy for an import that can run for hours. GeoGenius
-declares `pgflow ~> 0.5.0` as an optional dependency to establish compile order when a
+declares `pgflow ~> 0.7.0` as an optional dependency to establish compile order when a
 host opts in, without installing PgFlow for other hosts. Pin the runner per call or in application
 configuration after choosing a suitable deadline. The deadline is compile-time PgFlow job
 definition data, so it must be configured before GeoGenius compiles:
@@ -626,7 +626,7 @@ a national vintage means blocking the caller for hours.
 
 More on `GeoGenius.Runners.PgFlow`: it runs the import as a durable PgFlow job.
 The optional dependency edge ensures this library's job submodule compiles after `PgFlow.Job`
-when the host adds PgFlow directly. PgFlow 0.3.4 compiles its dashboard modules even when the host
+when the host adds PgFlow directly. PgFlow 0.7.0 compiles its dashboard modules even when the host
 does not mount the dashboard, so a current PgFlow consumer must also declare PgFlow's optional
 `phoenix`, `phoenix_live_view`, and `livefilter` dependencies. This is a PgFlow packaging
 requirement, not a dependency GeoGenius imposes on hosts using another runner. This backend reports itself available once
@@ -634,7 +634,9 @@ requirement, not a dependency GeoGenius imposes on hosts using another runner. T
 returns an explicit not-enqueued error naming what is missing rather than raising deep inside
 `PgFlow.enqueue/2`. It also verifies that PgFlow and the import use the same Repo, that the stored
 flow and `execute` step carry the compiled timeout, and that a healthy queue worker is polling
-before enqueue. This keeps readiness, durable enqueue, and execution in one database.
+before enqueue. This keeps readiness, durable enqueue, and execution in one database. Hosts upgrading from an
+earlier PgFlow move their PgFlow schema to core V03 and helpers V07 first, following
+PgFlow's [Upgrading to 0.7](https://github.com/agoodway/pgflow/blob/v0.7.0/README.md#upgrading-to-07) and full [upgrade guide](https://github.com/agoodway/pgflow/blob/v0.7.0/docs/UPGRADING_UPSTREAM_2026_10.md).
 
 After setting the compile-time timeout, generate and run the PgFlow job migration:
 
