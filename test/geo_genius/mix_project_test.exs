@@ -24,16 +24,14 @@ defmodule GeoGenius.MixProjectTest do
              Enum.find(deps, &match?({:pgflow, _, _}, &1))
 
     refute Version.match?("0.5.0", requirement)
-    assert Version.match?("0.7.0", requirement)
+    refute Version.match?("0.7.1", requirement)
+    assert Version.match?("0.7.2", requirement)
     refute Version.match?("0.8.0", requirement)
     assert opts[:optional] == true
     refute Keyword.has_key?(opts, :only)
 
     for package <- [:phoenix, :phoenix_live_view, :livefilter] do
-      assert {^package, _requirement, package_opts} =
-               Enum.find(deps, &match?({^package, _, _}, &1))
-
-      assert package_opts[:optional] == true
+      refute Enum.find(deps, &match?({^package, _, _}, &1))
     end
   end
 end

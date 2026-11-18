@@ -1,5 +1,12 @@
 # Changelog
 
+## v0.2.1
+
+### Dependencies
+
+- Requires PgFlow `~> 0.7.2`; drops the LiveFilter, Phoenix, and Phoenix LiveView optional
+  dependencies that only PgFlow's dashboard needed.
+
 ## v0.2.0
 
 ### Dependencies

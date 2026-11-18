@@ -276,7 +276,7 @@ A host that uses Hasura, Flyway, or another SQL-first migration system can rende
 GeoGenius transition it intends to apply without starting a Repo or issuing any database query:
 
 ```console
-mix geo_genius.migration_sql --prefix geo_genius --from 0 --to 1 > priv/hasura/migrations/20260831_install_geo_genius/up.sql
+mix geo_genius.migration_sql --prefix geo_genius --from 0 --to 1 > migrations/20260831_install_geo_genius/up.sql
 ```
 
 `--prefix`, `--from`, and `--to` are all required. The task writes only SQL to standard output,

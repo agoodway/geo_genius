@@ -2,18 +2,14 @@ defmodule GeoGenius.Runners.PgFlow do
   @moduledoc """
   Runs an import as a durable PgFlow background job.
 
-  `pgflow` `~> 0.7.0` is an optional dependency. It establishes
+  `pgflow` `~> 0.7.2` is an optional dependency. It establishes
   compile order when a host opts into PgFlow, so `PgFlow.Job` is available
   before this file conditionally defines `GeoGenius.Runners.PgFlow.Job`.
   Hosts that do not install PgFlow do not receive it or compile the job.
 
-  PgFlow's dashboard code also compiles against its optional Phoenix,
-  Phoenix LiveView, and LiveFilter packages when those packages are present.
-  GeoGenius declares matching optional edges so its own integration build can
-  exercise the real job module once that build supplies its job deadline. A
-  host using a PgFlow release that compiles those dashboard modules
-  unconditionally must opt into those packages too; they are not made
-  mandatory by GeoGenius.
+  PgFlow 0.7.2 compiles its optional dashboard modules only when Phoenix
+  LiveView and LiveFilter are loaded, so a host that does not use the
+  dashboard needs neither package.
 
   The job is a single-step definition (`@job queue: :geo_genius_import`)
   whose `perform :execute` block calls `GeoGenius.Pipeline.execute/3` through
@@ -64,10 +60,7 @@ defmodule GeoGenius.Runners.PgFlow do
 
   A host that installs `pgflow` wires this up once:
 
-    1. Add `{:pgflow, "~> 0.7.0"}` to `mix.exs`.
-       For PgFlow releases whose dashboard compiles unconditionally, also add
-       `:phoenix`, `:phoenix_live_view`, and `:livefilter` at PgFlow's
-       supported versions.
+    1. Add `{:pgflow, "~> 0.7.2"}` to `mix.exs`.
     2. Set `config :geo_genius, pgflow_job_timeout_seconds: seconds` at compile
        time, choosing a deadline for the host's bounded workload.
     3. Compile the job into the database with `mix pgflow.gen.job_migration
@@ -440,10 +433,8 @@ defmodule GeoGenius.Runners.PgFlow do
   @spec unavailable_message() :: String.t()
   def unavailable_message do
     ~s|GeoGenius cannot enqueue through PgFlow: :pgflow or this integration is not | <>
-      ~s|compiled, or its supervisor is not running. Add {:pgflow, "~> 0.7.0"} to your | <>
-      ~s|deps. If that PgFlow release compiles its dashboard unconditionally, also add | <>
-      ~s|{:phoenix, "~> 1.8"}, {:phoenix_live_view, "~> 1.0"}, and | <>
-      ~s|{:livefilter, "~> 0.2"}, then run `mix deps.get`. Compile the job with | <>
+      ~s|compiled, or its supervisor is not running. Add {:pgflow, "~> 0.7.2"} to your | <>
+      ~s|deps, then run `mix deps.get`. Compile the job with | <>
       ~s|a positive compile-time `config :geo_genius, :pgflow_job_timeout_seconds`, then | <>
       ~s|`mix pgflow.gen.job_migration | <>
       ~s|GeoGenius.Runners.PgFlow.Job` and `mix ecto.migrate`, then start {PgFlow, repo: | <>

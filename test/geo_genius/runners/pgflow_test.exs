@@ -76,15 +76,11 @@ defmodule GeoGenius.Runners.PgFlowTest do
   test "unavailable_message/0 carries the whole optional integration remedy" do
     message = Runners.PgFlow.unavailable_message()
 
-    # A host that follows only part of this message -- adds `:pgflow` but
-    # not Phoenix, or adds both but never force-recompiles this library --
-    # hits a compile failure or a stale `Job` the message never warned
-    # about. Every assertion here names one step a truncated message could
-    # plausibly still pass while leaving that gap.
-    assert message =~ ":pgflow"
-    assert message =~ ~s({:phoenix, "~> 1.8"})
-    assert message =~ ~s({:phoenix_live_view, "~> 1.0"})
-    assert message =~ ~s({:livefilter, "~> 0.2"})
+    # Every assertion here names one step a truncated message could
+    # plausibly still pass while leaving a gap.
+    assert message =~ ~s({:pgflow, "~> 0.7.2"})
+    refute message =~ "livefilter"
+    refute message =~ "phoenix"
     refute message =~ "deps.compile geo_genius --force"
     assert message =~ "pgflow.gen.job_migration"
     assert message =~ "GeoGenius.Runners.PgFlow.Job"
